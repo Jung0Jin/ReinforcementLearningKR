@@ -1,6 +1,7 @@
 import numpy as np
 from environment import GraphicDisplay, Env
 
+
 class ValueIteration:
     def __init__(self, env):
         # 환경에 대한 객체 선언
@@ -13,9 +14,10 @@ class ValueIteration:
     # 벨만 최적 방정식을 통해 다음 가치 함수 계산
     def value_iteration(self):
         # 다음 가치함수 초기화
-        next_value_table = [[0.0] * self.env.width for _ in range(self.env.height)]
+        next_value_table = [[0.0] * self.env.width 
+                           for _ in range(self.env.height)]
 
-        # 모든 상태에 대해서 벨만 최적 방정식을 계산
+        # 모든 상태에 대해서 벨만 최적방정식을 계산                           
         for state in self.env.get_all_states():
             # 마침 상태의 가치 함수 = 0
             if state == [2, 2]:
@@ -26,7 +28,7 @@ class ValueIteration:
             value_list = []
             for action in self.env.possible_actions:
                 next_state = self.env.state_after_action(state, action)
-                reward = self.get_reward(state, action)
+                reward = self.env.get_reward(state, action)
                 next_value = self.get_value(next_state)
                 value_list.append((reward + self.discount_factor * next_value))
 
@@ -56,6 +58,7 @@ class ValueIteration:
 
     def get_value(self, state):
         return self.value_table[state[0]][state[1]]
+
 
 if __name__ == "__main__":
     env = Env()
